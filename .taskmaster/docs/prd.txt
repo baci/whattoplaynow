@@ -1,0 +1,75 @@
+<context>
+# Overview  
+A modern videogame recommendation website that helps users discover new games tailored to their preferences. The site uses a Tinder-like swipe interface to ask users a series of predefined questions about their gaming tastes, then recommends games based on their answers. The goal is to make game discovery fun, interactive, and highly personalized, especially for users overwhelmed by choice or looking for something new.
+
+# Core Features  
+- **Tinder-like Question Swiping**: Users answer a series of predefined questions by swiping left ("no") or right ("yes"). Questions appear in a random order to keep the experience fresh and unbiased.
+- **Intro Slide**: The first slide explains the swiping mechanic and sets user expectations.
+- **Progress Bar**: A progress bar at the top shows how many questions have been answered out of the total.
+- **Recommendation Calculation**: After all questions are answered, the backend calculates a list of recommended games. For the MVP, this is mocked, but will later integrate with SteamDB.
+- **Loading Spinner**: While recommendations are being calculated, a loading spinner is displayed.
+- **Top 10 Recommendations Carousel**: The top 10 games are shown as a horizontal carousel of embedded YouTube trailers, each with an affiliate "Buy on cdkeys.com" link.
+- **Restart Option**: Users can restart the process at any time to get new recommendations.
+- **Backend**: ASP.NET / C# application.
+- **Recommendation Engine**: Initially mocked, but designed to pull from a document-based DB where each game document reflects question attributes (e.g., story-driven, simulation-heavy, fast-paced, etc.).
+- **Frontend**: React + TypeScript, ViteJs, minimal but expandable, styled with Tailwind CSS.
+- **Testing**: End-to-end tests using Playwright.
+
+# User Experience  
+- **User Personas**: Gamers seeking new recommendations, casual players, and those overwhelmed by choice.
+- **Key User Flows**:
+  1. User lands on the site and sees an intro slide explaining the swipe mechanic.
+  2. User swipes through randomized questions, with a progress bar updating at the top.
+  3. After the last question, a loading spinner appears while recommendations are calculated.
+  4. User is shown a horizontal carousel of the top 10 recommended games, each with a YouTube trailer and a "Buy on cdkeys.com" link.
+  5. User can restart the process at any time.
+- **UI/UX Considerations**: Simple, minimal, and modern UI using Tailwind. Swiping should feel smooth and responsive. The carousel should be horizontal for intuitive browsing. All interactions should be mobile-friendly.
+</context>
+<PRD>
+# Technical Architecture  
+- **Frontend**: React (TypeScript), Tailwind CSS for styling, Playwright for E2E testing, Vite for tooling.
+- **Backend**: ASP.NET (C#), REST API endpoints for questions, answers, and recommendations.
+- **Database**: Document-based (e.g., MongoDB). Each game document includes attributes corresponding to the questions.
+- **Recommendation Engine**: For MVP, a mock service that matches user answers to game attributes. Later, integrate with data pulled from SteamDB for real recommendations.
+- **YouTube Integration**: Embed trailers using YouTube iframe API.
+- **Affiliate Integration**: Each game result includes a "Buy on cdkeys.com" affiliate link.
+
+# Development Roadmap  
+- **MVP Requirements**:
+  - Implement swipeable question interface with intro slide and progress bar.
+  - Randomize question order per session.
+  - Mock backend with ASP.NET/C# serving questions and mocked recommendations from the document DB.
+  - Display loading spinner during recommendation calculation.
+  - Show top 10 recommendations as a horizontal carousel with YouTube trailers and affiliate links.
+  - Allow users to restart the process.
+  - Style all UI with Tailwind.
+  - Add Playwright E2E tests for all major flows.
+- **Future Enhancements**:
+  - Integrate real recommendation engine using MongoDB, with data pulled from SteamDB, Youtube and cdkeys.com.
+  - Expand carousel to show more than 10 games (possibly streamed).
+  - Add user accounts and save preferences/history.
+  - Add more question types and richer game attributes.
+  - Improve mobile experience and accessibility.
+  - Sponsored recommendations to enable further monetization.
+
+# Logical Dependency Chain
+- Set up project structure and install dependencies (React, Tailwind, Vite, ASP.NET, Playwright, etc.).
+- Implement backend API for questions and recommendations (mocked for MVP).
+- Build frontend swipe interface, intro slide, and progress bar.
+- Connect frontend to backend for questions and answers.
+- Implement loading spinner and recommendation retrieval.
+- Build horizontal carousel for recommendations with YouTube and affiliate links.
+- Add restart functionality.
+- Write Playwright tests for all flows.
+- Prepare for SteamDB integration and future enhancements.
+
+# Risks and Mitigations  
+- **Technical challenges**: Integrating swipe mechanics and carousel UI. Mitigation: Use well-supported React libraries or custom hooks for swiping and carousels.
+- **MVP scope creep**: Focus on mocked backend and core flows first. Mitigation: Defer SteamDB and user accounts to future phases.
+- **Data quality**: Mocked recommendations may not be accurate. Mitigation: Clearly label as "beta" and prioritize SteamDB integration post-MVP.
+- **Testing complexity**: Playwright E2E tests for swipe and carousel. Mitigation: Start with basic flows and expand coverage iteratively.
+
+# Appendix  
+- **Research findings**: Tinder-like interfaces increase engagement. SteamDB offers robust game data for future integration. Affiliate programs like cdkeys.com can monetize recommendations.
+- **Technical specifications**: Use React 19+, Tailwind 4+, ASP.NET 8+, Playwright latest, MongoDB. DB schema: each game document includes fields for each question/attribute (e.g., { "storyHeavy": true, "fastPaced": false, ... }), game title, youtube and affiliate link.
+</PRD> 
