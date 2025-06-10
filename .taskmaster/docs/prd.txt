@@ -45,12 +45,14 @@ A modern videogame recommendation website that helps users discover new games ta
   - Style all UI with Tailwind.
   - Add Playwright E2E tests for all major flows.
 - **Future Enhancements**:
+  - add GDPR compliant cookie consent and privacy policy
   - Integrate real recommendation engine using MongoDB, with data pulled from SteamDB, Youtube and cdkeys.com.
   - Expand carousel to show more than 10 games (possibly streamed).
   - Add user accounts and save preferences/history.
   - Add more question types and richer game attributes.
   - Improve mobile experience and accessibility.
   - Sponsored recommendations to enable further monetization.
+  - Highlights for recommendations like "new", "trending", "hot"
 
 # Logical Dependency Chain
 - Set up project structure and install dependencies (React, Tailwind, Vite, ASP.NET, Playwright, etc.).
