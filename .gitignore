@@ -28,3 +28,9 @@ node_modules/
 tasks.json
 tasks/ 
 .taskmaster/reports/task-complexity-report.json
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
