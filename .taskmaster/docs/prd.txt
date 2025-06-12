@@ -11,7 +11,7 @@ A modern videogame recommendation website that helps users discover new games ta
 - **Top 10 Recommendations Carousel**: The top 10 games are shown as a horizontal carousel of embedded YouTube trailers, each with an affiliate "Buy on cdkeys.com" link.
 - **Restart Option**: Users can restart the process at any time to get new recommendations.
 - **Backend**: ASP.NET / C# application.
-- **Recommendation Engine**: Initially mocked, but designed to pull from a document-based DB where each game document reflects question attributes (e.g., story-driven, simulation-heavy, fast-paced, etc.).
+- **Recommendation Engine**: Initially mocked, but designed to pull from a PostgresDB where each game recommendation entry reflects binary question answers (e.g., story-driven vs. simulation-heavy, fast-paced vs. chill, etc.).
 - **Frontend**: React + TypeScript, ViteJs, minimal but expandable, styled with Tailwind CSS.
 - **Testing**: End-to-end tests using Playwright.
 
@@ -29,8 +29,8 @@ A modern videogame recommendation website that helps users discover new games ta
 # Technical Architecture  
 - **Frontend**: React (TypeScript), Tailwind CSS for styling, Playwright for E2E testing, Vite for tooling.
 - **Backend**: ASP.NET (C#), REST API endpoints for questions, answers, and recommendations.
-- **Database**: Document-based (e.g., MongoDB). Each game document includes attributes corresponding to the questions.
-- **Recommendation Engine**: For MVP, a mock service that matches user answers to game attributes. Later, integrate with data pulled from SteamDB for real recommendations.
+- **Database**: PostgresDB. Each game recommendation includes attributes corresponding to the questions.
+- **Recommendation Engine**: For MVP, a mock service that matches user answers to game attributes. Later, integrate with data pulled from Steam API for real recommendations.
 - **YouTube Integration**: Embed trailers using YouTube iframe API.
 - **Affiliate Integration**: Each game result includes a "Buy on cdkeys.com" affiliate link.
 
@@ -38,7 +38,7 @@ A modern videogame recommendation website that helps users discover new games ta
 - **MVP Requirements**:
   - Implement swipeable question interface with intro slide and progress bar.
   - Randomize question order per session.
-  - Mock backend with ASP.NET/C# serving questions and mocked recommendations from the document DB.
+  - Mock backend with ASP.NET/C# serving questions and mocked recommendations from the DB.
   - Display loading spinner during recommendation calculation.
   - Show top 10 recommendations as a horizontal carousel with YouTube trailers and affiliate links.
   - Allow users to restart the process.
@@ -46,7 +46,7 @@ A modern videogame recommendation website that helps users discover new games ta
   - Add Playwright E2E tests for all major flows.
 - **Future Enhancements**:
   - add GDPR compliant cookie consent and privacy policy
-  - Integrate real recommendation engine using MongoDB, with data pulled from SteamDB, Youtube and cdkeys.com.
+  - Integrate real recommendation engine using MongoDB, with data pulled from Steam, Youtube and cdkeys.com.
   - Expand carousel to show more than 10 games (possibly streamed).
   - Add user accounts and save preferences/history.
   - Add more question types and richer game attributes.
@@ -63,7 +63,7 @@ A modern videogame recommendation website that helps users discover new games ta
 - Build horizontal carousel for recommendations with YouTube and affiliate links.
 - Add restart functionality.
 - Write Playwright tests for all flows.
-- Prepare for SteamDB integration and future enhancements.
+- Prepare for Steam API integration and future enhancements.
 
 # Risks and Mitigations  
 - **Technical challenges**: Integrating swipe mechanics and carousel UI. Mitigation: Use well-supported React libraries or custom hooks for swiping and carousels.
@@ -73,5 +73,5 @@ A modern videogame recommendation website that helps users discover new games ta
 
 # Appendix  
 - **Research findings**: Tinder-like interfaces increase engagement. SteamDB offers robust game data for future integration. Affiliate programs like cdkeys.com can monetize recommendations.
-- **Technical specifications**: Use React 19+, Tailwind 4+, ASP.NET 8+, Playwright latest, MongoDB. DB schema: each game document includes fields for each question/attribute (e.g., { "storyHeavy": true, "fastPaced": false, ... }), game title, youtube and affiliate link.
+- **Technical specifications**: Use React 19+, Tailwind 4+, ASP.NET 8+, Playwright latest, PostgresDB. DB schema: each game recommendation includes fields for each question/attribute (e.g., { "storyHeavy": true, "fastPaced": false, ... }), game title, youtube and affiliate link.
 </PRD> 

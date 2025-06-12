@@ -11,7 +11,7 @@ A modern web application that helps users discover new video games through a Tin
 ## Tech Stack
 - **Frontend:** React, TypeScript, Vite, Tailwind CSS
 - **Backend:** ASP.NET 8 WebAPI with a Clean Architecture project structure
-- **Database:** MongoDB via EFCore
+- **Database:** PostgresDB via EFCore
 - **Testing:** Playwright
 - **DevOps:** Docker, Docker Compose, GitHub Actions
 
