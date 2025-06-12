@@ -18,7 +18,6 @@ node_modules/
 *.suo
 *.ntvs*
 *.njsproj
-*.sln
 *.sw?
 
 # OS specific
@@ -35,8 +34,6 @@ tasks/
 /blob-report/
 /playwright/.cache/
 
-# Ignore all obj folders recursively
+# backend build output
 **/obj/
-
-# Ignore all bin folders recursively
 **/bin/
