@@ -1,9 +1,22 @@
+using Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using Application.Repositories;
+using Infrastructure.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Register DbContext with Postgres
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres")));
+
+// Register repositories
+builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
+builder.Services.AddScoped<IRecommendationRepository, RecommendationRepository>();
 
 var app = builder.Build();
 
