@@ -21,6 +21,22 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
 
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: mongo
+      MONGO_INITDB_DATABASE: whattoplaynow
+    volumes:
+      - mongo_data:/data/db
+
 networks:
   appnet:
-    driver: bridge 
+    driver: bridge
+
+volumes:
+  mongo_data: 
