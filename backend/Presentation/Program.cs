@@ -2,6 +2,7 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Application.Repositories;
 using Infrastructure.Repositories;
+using Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +47,13 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast")
 .WithOpenApi();
+
+// Seed mock data on startup
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    DbSeeder.Seed(db);
+}
 
 app.Run();
 
