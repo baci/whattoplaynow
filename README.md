@@ -10,8 +10,8 @@ A modern web application that helps users discover new video games through a Tin
 
 ## Tech Stack
 - **Frontend:** React, TypeScript, Vite, Tailwind CSS
-- **Backend:** ASP.NET 8 WebAPI
-- **Database:** MongoDB
+- **Backend:** ASP.NET 8 WebAPI with a Clean Architecture project structure
+- **Database:** MongoDB via EFCore
 - **Testing:** Playwright
 - **DevOps:** Docker, Docker Compose, GitHub Actions
 
@@ -44,7 +44,7 @@ npm run dev
 ### 4. Run Backend Manually
 
 ```sh
-cd backend
+cd backend/Presentation
 dotnet run
 ```
 - API runs at http://localhost:5241

@@ -34,3 +34,9 @@ tasks/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Ignore all obj folders recursively
+**/obj/
+
+# Ignore all bin folders recursively
+**/bin/
