@@ -1,8 +1,6 @@
 using Application.Repositories;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
@@ -18,7 +16,7 @@ namespace Infrastructure.Repositories
         public async Task<IEnumerable<Question>> GetAllAsync() =>
             await _context.Questions.ToListAsync();
 
-        public async Task<Question> GetByIdAsync(int id) =>
+        public async Task<Question?> GetByIdAsync(int id) =>
             await _context.Questions.FindAsync(id);
 
         public async Task AddAsync(Question question)
