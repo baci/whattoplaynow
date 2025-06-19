@@ -24,5 +24,8 @@ namespace Infrastructure.Repositories
             _context.Questions.Add(question);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<Question>> GetByIdsAsync(IEnumerable<int> ids) =>
+            await _context.Questions.Where(q => ids.Contains(q.Id)).ToListAsync();
     }
 } 

@@ -37,3 +37,4 @@ tasks/
 # backend build output
 **/obj/
 **/bin/
+*.sln.DotSettings.user

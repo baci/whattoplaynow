@@ -1,39 +1,30 @@
 using System.Net.Http.Json;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Domain.Entities;
 using Infrastructure;
-using Microsoft.AspNetCore.Hosting;
 
 namespace IntegrationTests
 {
-    public class QuestionsApiTests : IClassFixture<WebApplicationFactory<Program>>
+    public class QuestionsApiTests : IClassFixture<CustomWebApplicationFactory<Program>>
     {
-        private readonly WebApplicationFactory<Program> _factory;
+        private readonly CustomWebApplicationFactory<Program> _factory;
 
-        public QuestionsApiTests(WebApplicationFactory<Program> factory)
+        public QuestionsApiTests(CustomWebApplicationFactory<Program> factory)
         {
-            _factory = factory.WithWebHostBuilder(builder =>
-            {
-                builder.UseEnvironment("Testing");
-            });
+            _factory = factory;
         }
 
         [Fact]
         public async Task GetQuestions_ReturnsSeededQuestions()
         {
+            // Arrange
             var client = _factory.CreateClient();
 
-            // Seed the in-memory database after the server is running
-            using (var scope = _factory.Services.CreateScope())
-            {
-                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                DbSeeder.Seed(db);
-            }
-
+            // Act
             var response = await client.GetAsync("/api/questions");
             response.EnsureSuccessStatusCode();
 
+            // Assert
             var questions = await response.Content.ReadFromJsonAsync<List<Question>>();
             Assert.NotNull(questions);
             Assert.NotEmpty(questions);
