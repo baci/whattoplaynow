@@ -102,6 +102,13 @@ app.MapGet("/api/recommendations", async ([FromQuery] string answers, IQuestionR
 
     var recommendations = (await recommendationRepo.GetAllAsync())
         .Where(r => r.Tags.Any(tag => tags.Contains(tag)))
+        .Select(r => new
+        {
+            Recommendation = r,
+            MatchingTagCount = r.Tags.Count(tag => tags.Contains(tag))
+        })
+        .OrderByDescending(x => x.MatchingTagCount)
+        .Select(x => x.Recommendation)
         .ToList();
 
     return Results.Ok(recommendations);
