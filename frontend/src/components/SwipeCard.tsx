@@ -43,6 +43,7 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ children, onSwipe, index }) => {
       variants={cardVariants}
       exit="exit"
       animate={{ scale: 1 - index * 0.05, y: index * 10 }}
+      data-testid="swipe-card"
     >
       {children}
       <motion.div
