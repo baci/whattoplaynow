@@ -6,7 +6,7 @@ interface ProgressBarProps {
 }
 
 const ProgressBar: React.FC<ProgressBarProps> = ({ current, total }) => {
-  const progressPercentage = total > 0 ? (current / total) * 100 : 0;
+  const progressPercentage = total > 0 ? ((current+1) / total) * 100 : 0;
   const currentQuestionNumber = Math.min(current + 1, total);
 
   return (
