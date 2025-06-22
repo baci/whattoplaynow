@@ -42,7 +42,7 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ children, onSwipe, index }) => {
       whileTap={{ cursor: 'grabbing' }}
       variants={cardVariants}
       exit="exit"
-      animate={{ scale: 1 - index * 0.05, y: index * 10 }}
+      animate={{ scale: 1, y: 0 }}
       data-testid="swipe-card"
     >
       {children}
