@@ -38,7 +38,6 @@ namespace IntegrationTests
         [Fact]
         public async Task GetRecommendations_SortsByMatchingTagCount()
         {
-            // Arrange
             var client = _factory.CreateClient();
             using (var scope = _factory.Services.CreateScope())
             {
@@ -55,12 +54,10 @@ namespace IntegrationTests
                 db.SaveChanges();
             }
 
-            // Act - Get recommendations for strategy (positive) and singleplayer (positive)
             var response = await client.GetAsync("/api/recommendations?answers=1:positive,2:positive");
             response.EnsureSuccessStatusCode();
             var recommendations = await response.Content.ReadFromJsonAsync<List<Recommendation>>();
 
-            // Assert
             Assert.NotNull(recommendations);
             Assert.NotEmpty(recommendations);
             // Total War should be first (2 matching tags: strategy, singleplayer)

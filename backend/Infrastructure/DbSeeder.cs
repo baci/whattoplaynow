@@ -6,7 +6,6 @@ public static class DbSeeder
 {
     public static void Seed(ApplicationDbContext db)
     {
-        // Add questions if none exist
         if (!db.Questions.Any())
         {
             db.Questions.AddRange(
@@ -25,7 +24,6 @@ public static class DbSeeder
             );
         }
 
-        // Add recommendations if none exist
         if (!db.Recommendations.Any())
         {
             db.Recommendations.AddRange(
