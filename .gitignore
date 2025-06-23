@@ -38,3 +38,5 @@ tasks/
 **/obj/
 **/bin/
 *.sln.DotSettings.user
+tests/playwright-report/*
+tests/test-results/*
