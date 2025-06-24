@@ -1,0 +1,52 @@
+<context>
+# Overview
+This document describes a simplified plan for integrating the Steam Web API into the videogame recommendation platform. The sole goal is to periodically fetch and store game data from Steam to enrich the backend recommendation engine. No user data, achievements, or news will be retrieved or stored.
+
+# Core Features
+- **Steam Game Data Sync**: Regularly fetch game metadata from the Steam Web API and store it in the backend database.
+- **Extensible Schema**: Database design supports new game fields and future Steam API changes using `jsonb` for flexibility.
+- **Adapter Abstraction**: A single C# adapter interface isolates Steam API logic for game retrieval, supporting easy updates and testing.
+- **Scheduled Updates**: Game data is refreshed at regular intervals (e.g., daily or weekly) to keep recommendations current.
+
+# User Experience
+- **Improved Recommendations**: Users receive up-to-date game recommendations based on the latest Steam data.
+- **Richer Game Details**: Game entries in the recommendation engine include Steam-sourced metadata.
+</context>
+<PRD>
+# Technical Architecture
+- **Backend**: ASP.NET (C#), with a single adapter interface for Steam game data integration.
+- **Database**: PostgresDB, with a table for games and a `jsonb` field for raw API data.
+- **Adapter**: C# interface (ISteamGameAdapter) abstracts Steam API calls and maps responses to database entities.
+- **API Requirements**: Steam API key required. Data format: JSON (default). Rate limit: 100,000 requests/day per key.
+- **Integration Flow**:
+  1. A scheduled backend job calls the adapter to fetch game data from Steam.
+  2. The adapter handles API requests, transforms responses, and maps to the Game table.
+  3. Data is stored in the schema, with raw JSON for traceability.
+  4. The recommendation engine uses the updated game data for suggestions.
+
+# Database Schema (Simplified)
+- **Game**: id, steam_app_id, name, type, description, release_date, developer, publisher, genres, platforms, metacritic_score, header_image_url, raw_json
+- All foreign keys indexed. Use join tables for many-to-many (genres, platforms) if needed.
+
+# Adapter Interface (C#)
+- **ISteamGameAdapter**: GetGameByAppIdAsync, SearchGamesAsync, GetGamesByIdsAsync, GetAllGamesAsync
+- All methods async, return mapped game entities or DTOs. Error handling and rate limiting in the concrete class.
+
+# Development Roadmap
+- Implement and test the game table schema.
+- Develop and test the ISteamGameAdapter interface and implementation.
+- Set up a scheduled job for regular game data sync.
+- Integrate updated game data into the recommendation engine.
+
+# Risks and Mitigations
+- **API Rate Limits**: Mitigation: Schedule syncs to avoid exceeding limits and monitor usage.
+- **Steam API Changes**: Mitigation: Use adapter abstraction for easy updates.
+- **Data Consistency**: Mitigation: Store raw API responses for traceability and debugging.
+
+# References
+- [Valve Developer Wiki](https://developer.valvesoftware.com/wiki/Steam_Web_API)
+- [Steam API Key Registration](https://steamcommunity.com/dev/apikey)
+
+# Appendix
+- This PRD is to be referenced for all future Steam game data integration and backend recommendation work.
+</PRD> 
