@@ -20,6 +20,10 @@ services:
       - appnet
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
 
   postgres:
     image: postgres:16
@@ -35,11 +39,16 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - appnet
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d whattoplaynow"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
 networks:
   appnet:
     driver: bridge
 
 volumes:
-  mongo_data:
   postgres_data: 

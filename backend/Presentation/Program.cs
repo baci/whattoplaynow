@@ -4,6 +4,7 @@ using Application.Repositories;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Presentation;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,10 +44,53 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
+// Add health check endpoint
+app.MapGet("/health", () => Results.Ok("Healthy"));
+
+// Initialize database with retry logic
+app.MapGet("/api/init-db", async (ApplicationDbContext db) =>
+{
+    try
+    {
+        await db.Database.EnsureCreatedAsync();
+        DbSeeder.Seed(db);
+        return Results.Ok("Database initialized successfully");
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem($"Database initialization failed: {ex.Message}");
+    }
+});
+
+// Initialize database on startup with retry logic
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    DbSeeder.Seed(db);
+    var maxRetries = 5;
+    var retryDelay = TimeSpan.FromSeconds(5);
+    
+    for (int i = 0; i < maxRetries; i++)
+    {
+        try
+        {
+            await db.Database.EnsureCreatedAsync();
+            DbSeeder.Seed(db);
+            break;
+        }
+        catch (Exception ex)
+        {
+            if (i == maxRetries - 1)
+            {
+                // Log the error but don't crash the application
+                var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "Failed to initialize database after {RetryCount} attempts", maxRetries);
+            }
+            else
+            {
+                await Task.Delay(retryDelay);
+            }
+        }
+    }
 }
 
 app.MapGet("/api/questions", async (IQuestionRepository repository) =>
