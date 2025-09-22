@@ -1,6 +1,7 @@
 # WhatToPlay.Now
 
 A modern web application that helps users discover new video games through a Tinder-like swiping interface with personalized recommendations. Built with a React/TypeScript frontend, ASP.NET 8 backend, Tailwind CSS, and Playwright for end-to-end testing. 
+The recommendations are mocked at the moment, in the future, I am planning to utilise the Steam API.
 
 ## Features
 - Swipe-based game recommendation UI
